@@ -17,7 +17,7 @@ const SplashScreen = props => {
           value === null ? 'Auth' : 'DrawerNavigationRoutes'
         )
       );
-    }, 5000);
+    }, 3000);
   }, []);
 
   return (
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#307ecc',
+    backgroundColor: '#000000',
   },
   activityIndicator: {
     alignItems: 'center',

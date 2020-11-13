@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
+  Animated,
   StyleSheet,
   TextInput,
   View,
@@ -18,6 +19,8 @@ const LoginScreen = props => {
   let [userPassword, setUserPassword] = useState('');
   let [loading, setLoading] = useState(false);
   let [errortext, setErrortext] = useState('');
+  let [focusLogin, setFocusLogin] = useState(false);
+  let [focusEmail, setFocusEmail] = useState(false)
 
   const handleSubmitPress = () => {
     setErrortext('');
@@ -68,6 +71,8 @@ const LoginScreen = props => {
       });
   };
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
   return (
     <View style={styles.mainBody}>
       <Loader loading={loading} />
@@ -87,35 +92,37 @@ const LoginScreen = props => {
             </View>
             <View style={styles.SectionStyle}>
               <TextInput
-                style={styles.inputStyle}
+                style={[focusLogin? styles.inputFocus : styles.inputStyle]}
                 onChangeText={UserEmail => setUserEmail(UserEmail)}
-                underlineColorAndroid="#FFFFFF"
-                placeholder="Enter Email" //dummy@abc.com
-                placeholderTextColor="#F6F6F7"
+                placeholder="Enter E-mail Address" //dummy@abc.com
+                placeholderTextColor="#b5b5b5"
                 autoCapitalize="none"
                 keyboardType="email-address"
-                ref={ref => {
-                  this._emailinput = ref;
-                }}
+                onFocus={()=>setFocusLogin(true)}
+                onBlur={()=>setFocusLogin(false)}
+                // ref={ref => {
+                //   this._emailinput = ref;
+                // }}
                 returnKeyType="next"
-                onSubmitEditing={() =>
-                  this._passwordinput && this._passwordinput.focus()
-                }
+                // onSubmitEditing={() =>
+                //   this._passwordinput && this._passwordinput.focus()
+                // }
                 blurOnSubmit={false}
               />
             </View>
             <View style={styles.SectionStyle}>
               <TextInput
-                style={styles.inputStyle}
+                style={[focusEmail? styles.inputFocus : styles.inputStyle]}
                 onChangeText={UserPassword => setUserPassword(UserPassword)}
-                underlineColorAndroid="#FFFFFF"
                 placeholder="Enter Password" //12345
-                placeholderTextColor="#F6F6F7"
+                placeholderTextColor="#b5b5b5"
                 keyboardType="default"
-                ref={ref => {
-                  this._passwordinput = ref;
-                }}
-                onSubmitEditing={Keyboard.dismiss}
+                onFocus={()=>setFocusEmail(true)}
+                onBlur={()=>setFocusEmail(false)}
+                // ref={ref => {
+                //   this._passwordinput = ref;
+                // }}
+                // onSubmitEditing={Keyboard.dismiss}
                 blurOnSubmit={false}
                 secureTextEntry={true}
               />
@@ -127,7 +134,7 @@ const LoginScreen = props => {
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={handleSubmitPress}>
-              <Text style={styles.buttonTextStyle}>LOGIN</Text>
+              <Text style={styles.buttonTextStyle}>Login</Text>
             </TouchableOpacity>
             <Text
               style={styles.registerTextStyle}
@@ -146,7 +153,7 @@ const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#307ecc',
+    backgroundColor: '#000000',
   },
   SectionStyle: {
     flexDirection: 'row',
@@ -157,10 +164,10 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   buttonStyle: {
-    backgroundColor: '#7DE24E',
+    backgroundColor: '#f5ab00',
     borderWidth: 0,
     color: '#FFFFFF',
-    borderColor: '#7DE24E',
+    borderColor: '#f5ab00',
     height: 40,
     alignItems: 'center',
     borderRadius: 30,
@@ -177,11 +184,18 @@ const styles = StyleSheet.create({
   inputStyle: {
     flex: 1,
     color: 'white',
-    paddingLeft: 15,
-    paddingRight: 15,
+    padding: 5,
     borderWidth: 1,
-    borderRadius: 30,
-    borderColor: 'white',
+    borderRadius: 5,
+    borderColor: '#222',
+  },
+  inputFocus: {
+    flex: 1,
+    color: 'white',
+    padding: 5,
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: '#f5ab00',
   },
   registerTextStyle: {
     color: '#FFFFFF',
@@ -190,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   errorTextStyle: {
-    color: 'red',
+    color: 'tomato',
     textAlign: 'center',
     fontSize: 14,
   },
