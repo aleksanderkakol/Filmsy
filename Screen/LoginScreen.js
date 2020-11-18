@@ -92,7 +92,7 @@ const LoginScreen = props => {
             </View>
             <View style={styles.SectionStyle}>
               <TextInput
-                style={[focusLogin? styles.inputFocus : styles.inputStyle]}
+                style={[focusLogin ? styles.inputFocus : styles.inputStyle]}
                 onChangeText={UserEmail => setUserEmail(UserEmail)}
                 placeholder="Enter E-mail Address" //dummy@abc.com
                 placeholderTextColor="#b5b5b5"
@@ -112,7 +112,7 @@ const LoginScreen = props => {
             </View>
             <View style={styles.SectionStyle}>
               <TextInput
-                style={[focusEmail? styles.inputFocus : styles.inputStyle]}
+                style={[focusEmail ? styles.inputFocus : styles.inputStyle]}
                 onChangeText={UserPassword => setUserPassword(UserPassword)}
                 placeholder="Enter Password" //12345
                 placeholderTextColor="#b5b5b5"
