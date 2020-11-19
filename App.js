@@ -19,7 +19,7 @@ const Auth = createStackNavigator({
     navigationOptions: {
       title: 'Register',
       headerStyle: {
-        backgroundColor: '#307ecc',
+        backgroundColor: '#000000',
       },
       headerTintColor: '#fff',
     },
